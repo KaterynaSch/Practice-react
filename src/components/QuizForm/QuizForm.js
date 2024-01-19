@@ -1,5 +1,9 @@
 import { Formik, Form, Field,ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useState } from 'react';
+
+import  PracticeCaptcha  from 'components/PracticeCaptcha/PracticeCaptcha';
+
 
 const QuizSchema = Yup.object().shape({
     topic: Yup.string().min(3, 'Too Short!').required('Required'),
@@ -9,7 +13,8 @@ const QuizSchema = Yup.object().shape({
 })
 
 export const QuizForm = ({onAdd}) => {
-    return (
+  const [captchaValue, setCaptchaValue] = useState('');
+    return (      
         <Formik
         initialValues={{//початкове значення
           topic: '',
@@ -48,9 +53,10 @@ export const QuizForm = ({onAdd}) => {
                 <option value="advanced">Advanced</option>             
                 </Field>
                 <ErrorMessage name= 'level'/>
-            </label>
-          <button type="submit">Add quiz</button>
+            </label> 
+            <PracticeCaptcha onChange={setCaptchaValue}/> 
+            { captchaValue && <button type='submit'>Add quiz</button>}          
         </Form>
-      </Formik>
+      </Formik>        
     );
 };

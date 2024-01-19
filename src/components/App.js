@@ -5,6 +5,8 @@ import initialQuizItems from '../components/data.json';
 import { SearchBar } from "./SearchBar/SearchBar";
 import { QuizForm } from "./QuizForm/QuizForm";
 
+
+
 export class App extends Component {//клас
   state = {
     quizItems: initialQuizItems,
@@ -76,7 +78,7 @@ export class App extends Component {//клас
       
     return (
       <div>
-        <QuizForm onAdd ={this.addQuiz}/>
+        <QuizForm onAdd ={this.addQuiz}/>        
         <SearchBar 
         filters = {filters}
         onChangeFilter = {this.changeFilter}
