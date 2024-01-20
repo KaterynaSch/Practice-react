@@ -1,8 +1,9 @@
-import { Formik, Form, Field,ErrorMessage } from 'formik';
+import { Formik} from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
 
 import  PracticeCaptcha  from 'components/PracticeCaptcha/PracticeCaptcha';
+import { StyledErrMessage, StyledField, StyledForm, StyledLabel, FormButton } from './QuizForm.styled';
 
 
 const QuizSchema = Yup.object().shape({
@@ -13,8 +14,9 @@ const QuizSchema = Yup.object().shape({
 })
 
 export const QuizForm = ({onAdd}) => {
-  const [captchaValue, setCaptchaValue] = useState('');
-    return (      
+  const [captchaValue, setCaptchaValue] = useState(null);
+ 
+  return (      
         <Formik
         initialValues={{//початкове значення
           topic: '',
@@ -24,39 +26,39 @@ export const QuizForm = ({onAdd}) => {
         }}
         validationSchema={QuizSchema}
         onSubmit={ (values, actions) => {
-          console.log(values);//дані з полів форми
+          console.log(values);//дані з полів форми          
           onAdd(values);//додавання нового квіза при submit
-          actions.resetForm();//очищення полів форми при submit
+          actions.resetForm();//очищення полів форми при submit                     
         }}
-      >
-        <Form>
-            <label >
+      >       
+        <StyledForm>
+            <StyledLabel >
                 Topic
-                <Field  name="topic" placeholder="Topic" />
-                <ErrorMessage name= 'topic'/>
-            </label>
-            <label >
+                <StyledField  name="topic" placeholder="Topic" />
+                <StyledErrMessage name= 'topic'/>
+            </StyledLabel>
+            <StyledLabel >
                 Time
-                <Field type='number' name="time" placeholder="Time" />
-                <ErrorMessage name='time'/>
-            </label>
-            <label >
+                <StyledField type='number' name="time" placeholder="Time" />
+                <StyledErrMessage name='time'/>
+            </StyledLabel>
+            <StyledLabel >
                 Questions
-                <Field type='number' name="questions" placeholder="Questions" />
-                <ErrorMessage name= 'questions'/>
-            </label>
-            <label >
+                <StyledField type='number' name="questions" placeholder="Questions" />
+                <StyledErrMessage name= 'questions'/>
+            </StyledLabel>
+            <StyledLabel >
                 Level
-                <Field as="select" name="level">             
+                <StyledField as="select" name="level">             
                 <option value="beginner">Beginner</option>
                 <option value="intermediate">Intermediate</option>
                 <option value="advanced">Advanced</option>             
-                </Field>
-                <ErrorMessage name= 'level'/>
-            </label> 
-            <PracticeCaptcha onChange={setCaptchaValue}/> 
-            { captchaValue && <button type='submit'>Add quiz</button>}          
-        </Form>
+                </StyledField>
+                <StyledErrMessage name= 'level'/>
+            </StyledLabel> 
+           <PracticeCaptcha onChange={setCaptchaValue}/>            
+            {captchaValue && <FormButton type='submit'>Add quiz</FormButton>}          
+        </StyledForm>
       </Formik>        
     );
 };

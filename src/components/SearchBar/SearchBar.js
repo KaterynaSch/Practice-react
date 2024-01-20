@@ -1,6 +1,8 @@
+import { ButtonReset, SearchWrapper } from "./SearchBar.styled"
+
 export const SearchBar = ({filters:{topic, level}, onChangeFilter}) => {
     return (
-        <div>
+        <SearchWrapper>
             <input 
             type= 'text' value={topic} 
             onChange={evt => { onChangeFilter('topic', evt.target.value)}} //значення нового фільтра
@@ -12,6 +14,7 @@ export const SearchBar = ({filters:{topic, level}, onChangeFilter}) => {
                 <option value='intermediate'>Intermediate</option>
                 <option value='advanced'>Advanced</option>
             </select>
-        </div>
+            <ButtonReset type="button">Reset filters</ButtonReset>
+        </SearchWrapper>
     )
 }
