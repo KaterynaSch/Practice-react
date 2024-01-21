@@ -30,7 +30,6 @@ componentDidMount(){
 }
 
 //спрацьовує при обновленні стану або пропсів
-
 componentDidUpdate(prevProps, prevState){ 
   // записувати код через if щоб не перерендувати компонент без зміни його пропса чи стану
   if(
@@ -65,6 +64,15 @@ componentDidUpdate(prevProps, prevState){
         [key]: value,
       }
     }))
+  };
+
+  resetFilters = () => {
+    this.setState({
+      filters: {
+        topic: '',
+        level: 'all'  
+      },
+    });
   };
 
   addQuiz = newQuiz => {  
@@ -114,6 +122,7 @@ componentDidUpdate(prevProps, prevState){
         // level = {filters.level} topic = {filters.topic}         
         // onChangeTopic={this.changeTopicFilter}
         // onChangeLevel={this.changeLevelFilter}
+        onReset = {this.resetFilters}
         />
         <QuizList items = {visibleItems} onDelete = {this.deleteQuizItem}/>
       </MainContainer>

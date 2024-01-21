@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 16px;
+  grid-gap: ${p => p.theme.spacing(4)};
   margin: ${p => p.theme.spacing(4)};
-  padding-bottom: 24px;    
+  padding-bottom: ${p => p.theme.spacing(6)};   
 `

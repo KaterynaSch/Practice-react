@@ -19,3 +19,12 @@ export const ButtonDel = styled.button`
   border-radius : ${p => p.theme.radius.l};
   color: ${p => p.theme.colors.secondaryColor};
 `;
+
+export const ButtonModal = styled.button`
+  position: absolute;
+  bottom: ${p => p.theme.spacing(2)};
+  right: ${p => p.theme.spacing(2)};   
+  border: 1px solid ${p => p.theme.colors.borderColor};
+  border-radius : ${p => p.theme.radius.m};
+  color: ${p => p.theme.colors.secondaryColor};
+`;

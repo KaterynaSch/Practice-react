@@ -1,6 +1,6 @@
 import { ButtonReset, SearchWrapper } from "./SearchBar.styled"
 
-export const SearchBar = ({filters:{topic, level}, onChangeFilter}) => {
+export const SearchBar = ({filters:{topic, level}, onChangeFilter, onReset}) => {
     return (
         <SearchWrapper>
             <input 
@@ -14,7 +14,7 @@ export const SearchBar = ({filters:{topic, level}, onChangeFilter}) => {
                 <option value='intermediate'>Intermediate</option>
                 <option value='advanced'>Advanced</option>
             </select>
-            <ButtonReset type="button">Reset filters</ButtonReset>
+            <ButtonReset type="button" onClick={onReset}>Reset filters</ButtonReset>
         </SearchWrapper>
     )
 }

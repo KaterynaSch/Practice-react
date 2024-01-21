@@ -29,6 +29,7 @@ export const StyledErrMessage = styled(ErrorMessage)`
 `
 export const FormButton = styled.button`
     font-weight: 500; 
+    width:150px;
     font-size: ${p => p.theme.spacing(4)};
     padding: ${p => p.theme.spacing(1)};   
     border: 1px solid ${p => p.theme.colors.borderColor};

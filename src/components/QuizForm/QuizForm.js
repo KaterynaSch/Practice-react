@@ -1,6 +1,6 @@
 import { Formik} from 'formik';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import  PracticeCaptcha  from 'components/PracticeCaptcha/PracticeCaptcha';
 import { StyledErrMessage, StyledField, StyledForm, StyledLabel, FormButton } from './QuizForm.styled';
@@ -14,8 +14,9 @@ const QuizSchema = Yup.object().shape({
 })
 
 export const QuizForm = ({onAdd}) => {
-  const [captchaValue, setCaptchaValue] = useState(null);
- 
+  const [captchaValue, setCaptchaValue] = useState('');
+  const recaptchaRef = useRef();
+
   return (      
         <Formik
         initialValues={{//початкове значення
@@ -28,8 +29,14 @@ export const QuizForm = ({onAdd}) => {
         onSubmit={ (values, actions) => {
           console.log(values);//дані з полів форми          
           onAdd(values);//додавання нового квіза при submit
-          actions.resetForm();//очищення полів форми при submit                     
+          actions.resetForm();//очищення полів форми при submit 
+          console.log(recaptchaRef.current);
+          if (recaptchaRef.current) {
+            recaptchaRef.current.reset();
+            setCaptchaValue('');
+          }                   
         }}
+        
       >       
         <StyledForm>
             <StyledLabel >
@@ -55,10 +62,10 @@ export const QuizForm = ({onAdd}) => {
                 <option value="advanced">Advanced</option>             
                 </StyledField>
                 <StyledErrMessage name= 'level'/>
-            </StyledLabel> 
-           <PracticeCaptcha onChange={setCaptchaValue}/>            
-            {captchaValue && <FormButton type='submit'>Add quiz</FormButton>}          
+            </StyledLabel>            
+           <PracticeCaptcha ref={recaptchaRef} onChange={setCaptchaValue}/>  
+           {captchaValue  && <FormButton type='submit'>Add quiz</FormButton>}                          
         </StyledForm>
       </Formik>        
     );
-};
+}; 
