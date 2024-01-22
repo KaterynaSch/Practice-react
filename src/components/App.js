@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import { QuizList } from "./QuizList/QuizList";
 import { SearchBar } from "./SearchBar/SearchBar";
@@ -7,152 +7,109 @@ import { MainContainer } from "./MainContainer.styled";
 import { createQuiz, deleteQuizById, fetchQuizzes } from "./api";
 import { ErrorMessage } from "./ErrorMessage";
 
-//клас оголошують коли потрібен стан або доступ до методів життєвого циклу(export class App extends Component)
-export class App extends Component {
-  state = {
-    quizItems: [], 
-    loading: false,
-    error: false,   
-    filters: {
-      topic: '',
-      level: 'all'  
-    }
-  };
-// ці методи є в class Component, але порожні 
-// не стрілка, прив'язувння контексту не потрібне
-  async componentDidMount(){
+//ф-ція ініціалізатор стану
+// спрацьовує ще до стадії монтування компонента, до Effect
+const getInitialFilters = () => {
     const savedFilters = localStorage.getItem('quizItems');//читання з LS
-    if(savedFilters !== null){// перевю чи не пусто
-      this.setState({// збереження в state
-        filters: JSON.parse(savedFilters),
-      });
+    if(savedFilters !== null){//якщо не пусто
+        return JSON.parse(savedFilters);
     }
-    try {
-      this.setState({loading: true, error :false});
-      const quizzes = await fetchQuizzes();
-      toast.success('We found quizzes')
-      this.setState({
-        quizItems: quizzes,
-        loading: false,
-      });    
+    return {topic: '', level: 'all' }
+}
+//клас оголошують коли потрібен стан або доступ до методів життєвого циклу(export class App extends Component)
+export const App = () => {
 
-    } catch (error) {
-      this.setState({error :true});
-    } finally {
-      this.setState({loading: false});
-    }
-  }
-  //спрацьовує при обновленні стану або пропсів
-  componentDidUpdate(prevProps, prevState){ 
-    // записувати код через if щоб не перерендувати компонент без зміни його пропса чи стану
-    if(
-        prevState.filters !== this.state.filters
-      ){
-        localStorage.setItem('quizFilters', JSON.stringify(this.state.filters));
-        console.log('запис в LS');
-      }  
-  }
-  // componentWillUnmount(){}
-  addQuiz = async newQuiz => {  
-    try {
-      this.setState({loading: true, error: false});
-      const quiz = await createQuiz(newQuiz);
-      this.setState(prevState => ({
-        quizItems: [...prevState.quizItems, quiz],
-      }));
-    } catch (error) {
-      this.setState({error :true});
-    } finally{
-      this.setState({loading: false});
-    }  
-  };
+    const [quizItems, setQuizItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [filters, setFilters] = useState(getInitialFilters);
+   
 
-  getVisibleItems = () => {
-    const  {quizItems, filters} = this.state;
-    return quizItems.filter(quiz => {
-      const topicFilter = filters.topic.toLowerCase();
-      const hasTopic = quiz.topic.toLowerCase().includes(topicFilter);
-      if(filters.level === 'all'){
-        return hasTopic;
-      }
-      return hasTopic && quiz.level === filters.level;
-    });    
-  };
+    useEffect(() => {//замість componentDidUpdate(filers)//спрацьовує при обновленні стану або пропсів
+        localStorage.setItem('quizFilters', JSON.stringify(filters));
+    }, [filters]);
 
-  changeFilter = (key, value) => {//key - ім'я фільтра: value = evt.target.value з input
-    this.setState(prevState => ({
-      filters:{ 
-        ...prevState.filters,//розпилення попереднього стану для гарантії збереження всіх його частин
-        [key]: value,
-      }
-    }))
-  };
+    useEffect(()=> {//не може бути async, щоб запобігти 'ефекту гонитви'- race conditions
+        async function getQuizzes() {
+            try {
+                setLoading(true);
+                setError(false);
+                const quizzes = await fetchQuizzes();
+                toast.success('We found quizzes')     
+                setQuizItems(quizzes);    
+            } catch (error) {
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        }
+        getQuizzes();
+    },[])//порожній, бо в методі немає використання state or props  
 
-  resetFilters = () => {
-    this.setState({
-      filters: {
-        topic: '',
-        level: 'all'  
-      },
-    });
-  };
+    const addQuiz = async newQuiz => {  
+        try {
+        setLoading(true);
+        setError(false);
+        const quiz = await createQuiz(newQuiz);
+        setQuizItems(prevState =>[...prevState, quiz]);      
+        } catch (error) {
+        setError(true);
+        } finally{
+        setLoading(false);
+        }  
+    };       
+
+//хуки взагалі не зберігають цілісність попередного стану
+    const changeFilter = (key, value) => {//key - ім'я фільтра: value = evt.target.value з input
+        setFilters(prevState => ({      
+            ...prevState,//розпилення попереднього стану для гарантії збереження всіх його частин
+            [key]: value,     
+        }));
+    };
+
+    const resetFilters = () => {
+        setFilters({     
+            topic: '',
+            level: 'all'  
+        });
+    };
   
-  deleteQuizItem = async quizId=> {
-    try {
-      this.setState({loading :true, error: false});
-      const deletedQuiz = await deleteQuizById(quizId);      
-      this.setState(prevState => ({
-        quizItems: prevState.quizItems.filter(quiz => quiz.id !== deletedQuiz.id),
-      }))
-    } catch (error) {
-      this.setState({error :true});
-    } finally{
-      this.setState({loading: false});
-    } 
-    
-  };
-  //React зберігає при зміні стейту лише перший рівень вкладеності властивостей, тому потрібне розпилення prevState
-// changeTopicFilter = newTopic => {//newFilter = evt.target.value з input
-//   this.setState(prevState => ({
-//     filters:{ 
-//       ...prevState.filters,//розпилення попереднього стану для гарантії збереження всіх його частин
-//       topic: newTopic,
-//     }
-//   }))
-// };
+    const deleteQuizItem = async quizId=> {
+        try {
+            setLoading(true);
+            setError(false);
+            const deletedQuiz = await deleteQuizById(quizId); 
+            setQuizItems(prevState => 
+                prevState.filter(quiz => quiz.id !== deletedQuiz.id)     
+            );
+        } catch (error) {
+            setError(true);
+        } finally{
+            setLoading(false);
+        }         
+    };  
 
-// changeLevelFilter = newLevel => {//newFilter = evt.target.value з input
-//   this.setState(prevState => ({
-//     filters:{
-//       ...prevState.filters,
-//       level: newLevel,
-//     }
-//   }))
-// };
-//this. звернення в методі до властивості класу
+    const visibleItems = quizItems.filter(quiz => {
+        const topicFilter = filters.topic.toLowerCase();
+        const hasTopic = quiz.topic.toLowerCase().includes(topicFilter);
+        if(filters.level === 'all'){
+            return hasTopic;
+        }
+        return hasTopic && quiz.level === filters.level;
+    }); 
 
-  render(){//метод класу// рендерити при умові що компонент не порожній
-    // console.log('render');
-    const  { filters, loading, error} = this.state;
-    //якщо topic є в topic квіза і якщо filter співпадає - подвійна фільтрація
-    const visibleItems = this.getVisibleItems();
-      
     return (
       <MainContainer>
-        <QuizForm onAdd ={this.addQuiz}/>        
+        <QuizForm onAdd ={addQuiz}/>        
         <SearchBar 
         filters = {filters}
-        onChangeFilter = {this.changeFilter}
-        // level = {filters.level} topic = {filters.topic}         
-        // onChangeTopic={this.changeTopicFilter}
-        // onChangeLevel={this.changeLevelFilter}
-        onReset = {this.resetFilters}
+        onChangeFilter = {changeFilter}        
+        onReset = {resetFilters}
         />
         {loading && <b>Loading...</b>}
         {error && <ErrorMessage>Error! Please reload this page.</ErrorMessage>}
-        {visibleItems.length > 0 && <QuizList items = {visibleItems} onDelete = {this.deleteQuizItem}/>}
+        {visibleItems.length > 0 && <QuizList items = {visibleItems} onDelete = {deleteQuizItem}/>}
         <Toaster />
       </MainContainer>
-    )
-  }
+    )  
 };
