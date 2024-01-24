@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { QuizList } from "./QuizList/QuizList";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { QuizForm } from "./QuizForm/QuizForm";
-import { MainContainer } from "./MainContainer.styled";
+import { MainContainer } from "./MainContainer";
 import { createQuiz, deleteQuizById, fetchQuizzes } from "./api";
 import { ErrorMessage } from "./ErrorMessage";
 

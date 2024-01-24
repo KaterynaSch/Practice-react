@@ -2,6 +2,7 @@ import { BsFillTrash3Fill } from "react-icons/bs";
 import Modal from 'react-modal';
 import { ButtonDel, ButtonModal, CardWrapper, Title } from "./QuizCard.styled";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const customStyles = {
     content: {
@@ -31,7 +32,9 @@ export const QuizCard = ({quiz: {id, topic, level, time, questions},
 
     return (
     <CardWrapper>
-        <Title>{topic}</Title> 
+        <Link to={`/quizzes/${id}`}>
+            <Title>{topic}</Title> 
+        </Link>
         <ButtonDel onClick={() => onDelete(id)} >                
             <BsFillTrash3Fill />
         </ButtonDel>
