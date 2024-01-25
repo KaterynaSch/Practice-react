@@ -34,6 +34,7 @@ export default function QuizDetailsPage() {
 
     console.log("QuizDetailsPage:", location );
     // location.state.from - url з якого прийшов (збереження обраних фільтрів)
+    // -elvis---location?.state?.from - якщо location не об'єкт після ? не об'єкт, то поверне undefined
     return (
         <>
             <h1>QuizDetails</h1>            
@@ -48,4 +49,3 @@ export default function QuizDetailsPage() {
         </>
     );
 };
-// -elvis---location?.state?.from - якщо location не об'єкт після ? не об'єкт, то поверне undefined

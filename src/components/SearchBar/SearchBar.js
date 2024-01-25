@@ -1,4 +1,3 @@
-// import { useSearchParams } from "react-router-dom";
 import { useFilters } from "hooks/useFilters";
 
 import { TopicFilter } from "components/TopicFilter";

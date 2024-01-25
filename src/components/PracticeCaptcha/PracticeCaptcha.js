@@ -16,8 +16,8 @@ import ReCAPTCHA from "react-google-recaptcha";
             sitekey={key}
             onChange={handleChange}
         />                
-    )
-})
+    );
+});
 
 export default PracticeCaptcha;
 
