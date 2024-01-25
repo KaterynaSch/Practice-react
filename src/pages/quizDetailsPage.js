@@ -1,14 +1,17 @@
-import { ErrorMessage } from "components/ErrorMessage";
-import { fetchQuizById } from "components/api";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import {useLocation, useParams } from "react-router-dom";
+
+import { BackLink } from "components/BackLink";
+import { ErrorMessage } from "components/ErrorMessage";
+import { fetchQuizById } from "components/api";
+
 
 export default function QuizDetailsPage() {
+    const location = useLocation();
     const [quiz, setQuiz] = useState();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-   
+    const [error, setError] = useState(false);   
 
     const {quizId} = useParams();
     useEffect(() => {
@@ -27,10 +30,14 @@ export default function QuizDetailsPage() {
         }
         getQuiz()
     }, [quizId]); 
-    
+
+    console.log("QuizDetailsPage:", location );
+    // location.state.from - url з якого прийшов (збереження обраних фільтрів)
     return (
         <>
-            QuizDetails
+            <h1>QuizDetails</h1>
+            {/* <Link to={location.state.from}>Back to quizzes </Link> */}
+            <BackLink to={location?.state?.from ?? "/quizzes"}>Back to quizzes </BackLink>
             {quiz && 
             <>  
                 <p>Topic: {quiz.topic}</p>
@@ -39,5 +46,6 @@ export default function QuizDetailsPage() {
             {loading && <b>Loading...</b>} 
             {error && <ErrorMessage>Error! Please reload this page.</ErrorMessage>}
         </>
-    )
-}
+    );
+};
+// -elvis---location?.state?.from - якщо location не об'єкт після ? не об'єкт, то поверне undefined

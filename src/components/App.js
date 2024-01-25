@@ -1,22 +1,27 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import { MainContainer } from "./MainContainer";
-import HomePage from 'pages/HomePage';
-import QuizzesPage from 'pages/QuizzesPage';
-import CreateQuizPage from 'pages/CreateQuizPage';
-import QuizDetailsPage from 'pages/quizDetailsPage';
+import { Layout} from "./Layout";
+import { lazy } from "react";
+
+// розділення коду
+const HomePage = lazy(() => import('pages/HomePage'))
+const QuizzesPage= lazy(() => import('pages/QuizzesPage'))
+const CreateQuizPage= lazy(() => import('pages/CreateQuizPage'))
+const QuizDetailsPage= lazy(() => import('pages/QuizDetailsPage'))
+const NotFoundPage= lazy(() => import('pages/NotFoundPage'))
 
 export const App = () => {   
 
-    return (                   
+    return (                 
         <Routes>
-            <Route path="/" element={<MainContainer/>}>
+            <Route path="/" element={<Layout/>}>
                 <Route index path="/" element={<HomePage/>}/>
                 <Route path="create" element={<CreateQuizPage/>}/>
                 <Route path="quizzes" element={<QuizzesPage/>}/>
                 <Route path="quizzes/:quizId" element={<QuizDetailsPage/>}/>
-                <Route path="*" element= {<Navigate to = {"/"}/>}/>
+                <Route path="*" element= {<NotFoundPage/>}/>
+                {/* <Route path="*" element= {<Navigate to = {"/"}/>}/> */}
             </Route>
-        </Routes>                     
+        </Routes>                            
     )  
 };

@@ -1,5 +1,5 @@
-import { QuizCard } from "components/QuizCard/QuizCard"
-import { List } from "./QuizList.styled"
+import { QuizCard } from "components/QuizCard/QuizCard";
+import { List } from "./QuizList.styled";
 
 export const QuizList = ({items, onDelete}) => {//<li> повинна бути в списку
     return (
@@ -11,5 +11,5 @@ export const QuizList = ({items, onDelete}) => {//<li> повинна бути �
             ))} 
             
         </List>
-    )
-}
+    );
+};

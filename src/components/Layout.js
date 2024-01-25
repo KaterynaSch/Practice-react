@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
@@ -16,7 +17,7 @@ const Link = styled(NavLink)`
 }
 `;
 
-export const MainContainer = () => {
+export const Layout = () => {
   return(
     <Container>
         <header>
@@ -26,7 +27,10 @@ export const MainContainer = () => {
               <Link to="/quizzes">Quiz list</Link>
           </nav>
           </header>
-          <Outlet/>
+          <Suspense fallback={`LOADING PAGE...`}> 
+            <Outlet/>
+          </Suspense>
+         
           <Toaster position="top-right"/>
     </Container>
   )

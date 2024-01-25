@@ -1,10 +1,11 @@
+import { BackLink } from "components/BackLink";
 import { ErrorMessage } from "components/ErrorMessage";
 import { QuizForm } from "components/QuizForm/QuizForm";
 import { createQuiz } from "components/api";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function CreateQuizPage(second) {
+export default function CreateQuizPage() {
 
     //  const [quizItems, setQuizItems] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -27,9 +28,12 @@ export default function CreateQuizPage(second) {
 
     return (
         <>
+            <BackLink to="/quizzes">
+                Back to quizzes
+            </BackLink>
             <QuizForm onAdd ={addQuiz}/>
             {loading && <b>Creating quiz...</b>} 
             {error && <ErrorMessage>Error! Please reload this page.</ErrorMessage>}
         </>        
-    )
-}
+    );
+};

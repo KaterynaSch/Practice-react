@@ -1,20 +1,19 @@
-import { ButtonReset, SearchWrapper } from "./SearchBar.styled"
+// import { useSearchParams } from "react-router-dom";
+import { useFilters } from "hooks/useFilters";
 
-export const SearchBar = ({filters:{topic, level}, onChangeFilter, onReset}) => {
+import { TopicFilter } from "components/TopicFilter";
+import { ButtonReset, SearchWrapper } from "./SearchBar.styled";
+import { LevelFilter} from "components/LevelFilter";
+
+export const SearchBar = () => {
+
+    const {resetFilters} = useFilters();
+
     return (
         <SearchWrapper>
-            <input 
-            type= 'text' value={topic} 
-            onChange={evt => { onChangeFilter('topic', evt.target.value)}} //значення нового фільтра
-            placeholder="Filter by topic..."/>
-            <select value={level}
-            onChange={evt => { onChangeFilter('level', evt.target.value)}}>
-                <option value='all'>All</option>
-                <option value='beginner'>Beginner</option>
-                <option value='intermediate'>Intermediate</option>
-                <option value='advanced'>Advanced</option>
-            </select>
-            <ButtonReset type="button" onClick={onReset}>Reset filters</ButtonReset>
+            <TopicFilter/>
+            <LevelFilter/>            
+            <ButtonReset type="button" onClick={resetFilters}>Reset filters</ButtonReset> 
         </SearchWrapper>
-    )
-}
+    );
+};
