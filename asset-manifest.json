@@ -1,13 +1,31 @@
 {
   "files": {
-    "main.css": "/PracticeReact/static/css/main.cd2e038f.css",
-    "main.js": "/PracticeReact/static/js/main.a1445c40.js",
+    "main.css": "/PracticeReact/static/css/main.7cda0caf.css",
+    "main.js": "/PracticeReact/static/js/main.5c2ecfc9.js",
+    "static/js/206.75cad035.chunk.js": "/PracticeReact/static/js/206.75cad035.chunk.js",
+    "static/js/916.83d8b693.chunk.js": "/PracticeReact/static/js/916.83d8b693.chunk.js",
+    "static/js/158.1d05fdb5.chunk.js": "/PracticeReact/static/js/158.1d05fdb5.chunk.js",
+    "static/js/197.9031fa3a.chunk.js": "/PracticeReact/static/js/197.9031fa3a.chunk.js",
+    "static/js/791.98087f38.chunk.js": "/PracticeReact/static/js/791.98087f38.chunk.js",
+    "static/js/44.bc5ceba6.chunk.js": "/PracticeReact/static/js/44.bc5ceba6.chunk.js",
+    "static/js/330.a630c5a1.chunk.js": "/PracticeReact/static/js/330.a630c5a1.chunk.js",
+    "static/js/153.f83c47e8.chunk.js": "/PracticeReact/static/js/153.f83c47e8.chunk.js",
+    "static/js/650.39081183.chunk.js": "/PracticeReact/static/js/650.39081183.chunk.js",
     "index.html": "/PracticeReact/index.html",
-    "main.cd2e038f.css.map": "/PracticeReact/static/css/main.cd2e038f.css.map",
-    "main.a1445c40.js.map": "/PracticeReact/static/js/main.a1445c40.js.map"
+    "main.7cda0caf.css.map": "/PracticeReact/static/css/main.7cda0caf.css.map",
+    "main.5c2ecfc9.js.map": "/PracticeReact/static/js/main.5c2ecfc9.js.map",
+    "206.75cad035.chunk.js.map": "/PracticeReact/static/js/206.75cad035.chunk.js.map",
+    "916.83d8b693.chunk.js.map": "/PracticeReact/static/js/916.83d8b693.chunk.js.map",
+    "158.1d05fdb5.chunk.js.map": "/PracticeReact/static/js/158.1d05fdb5.chunk.js.map",
+    "197.9031fa3a.chunk.js.map": "/PracticeReact/static/js/197.9031fa3a.chunk.js.map",
+    "791.98087f38.chunk.js.map": "/PracticeReact/static/js/791.98087f38.chunk.js.map",
+    "44.bc5ceba6.chunk.js.map": "/PracticeReact/static/js/44.bc5ceba6.chunk.js.map",
+    "330.a630c5a1.chunk.js.map": "/PracticeReact/static/js/330.a630c5a1.chunk.js.map",
+    "153.f83c47e8.chunk.js.map": "/PracticeReact/static/js/153.f83c47e8.chunk.js.map",
+    "650.39081183.chunk.js.map": "/PracticeReact/static/js/650.39081183.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cd2e038f.css",
-    "static/js/main.a1445c40.js"
+    "static/css/main.7cda0caf.css",
+    "static/js/main.5c2ecfc9.js"
   ]
 }
