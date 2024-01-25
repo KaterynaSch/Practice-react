@@ -6,7 +6,6 @@ import { BackLink } from "components/BackLink";
 import { ErrorMessage } from "components/ErrorMessage";
 import { fetchQuizById } from "components/api";
 
-
 export default function QuizDetailsPage() {
 
     const location = useLocation();
@@ -20,8 +19,8 @@ export default function QuizDetailsPage() {
             try {
             setLoading(true);
             setError(false);
-            const fetcQuiz = await fetchQuizById(quizId);
-            setQuiz(fetcQuiz);
+            const fetchQuiz = await fetchQuizById(quizId);
+            setQuiz(fetchQuiz);
             toast.success('We found quiz!')            
             } catch (error) {
             setError(true);

@@ -26,8 +26,7 @@ export const QuizForm = ({onAdd}) => {
           level: 'beginner'
         }}
         validationSchema={QuizSchema}
-        onSubmit={ (values, actions) => {
-          console.log(values);//дані з полів форми          
+        onSubmit={ (values, actions) => {         
           onAdd(values);//додавання нового квіза при submit
           actions.resetForm();//очищення полів форми при submit 
           console.log(recaptchaRef.current);

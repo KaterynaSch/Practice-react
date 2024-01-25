@@ -5,10 +5,10 @@ import { Layout} from "./Layout";
 
 // розділення коду
 const HomePage = lazy(() => import('../pages/HomePage'));
-const QuizzesPage= lazy(() => import('../pages/QuizzesPage'));
-const CreateQuizPage= lazy(() => import('../pages/CreateQuizPage'));
-const QuizDetailsPage= lazy(() => import('../pages/QuizDetailsPage'));
-const NotFoundPage= lazy(() => import('../pages/NotFoundPage'));
+const QuizzesPage = lazy(() => import('../pages/QuizzesPage'));
+const CreateQuizPage = lazy(() => import('../pages/CreateQuizPage'));
+const QuizDetailsPage = lazy(() => import('../pages/QuizDetailsPage'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 export const App = () => {   
 

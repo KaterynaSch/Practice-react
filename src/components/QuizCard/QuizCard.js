@@ -20,8 +20,7 @@ Modal.setAppElement('#root');
 
 export const QuizCard = ({quiz: {id, topic, level, time, questions}, onDelete}) => {
    
-    const location = useLocation();
-    console.log(location);
+    const location = useLocation();    
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = ()=> {
