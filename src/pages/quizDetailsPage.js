@@ -31,7 +31,6 @@ export default function QuizDetailsPage() {
         getQuiz()
     }, [quizId]); 
 
-    console.log("QuizDetailsPage:", location );
     // location.state.from - url з якого прийшов (збереження обраних фільтрів)
     // -elvis---location?.state?.from - якщо location не об'єкт після ? не об'єкт, то поверне undefined
     return (
