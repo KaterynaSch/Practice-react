@@ -6,7 +6,7 @@ import { BackLink } from "components/BackLink";
 import { ErrorMessage } from "components/ErrorMessage";
 import { fetchQuizById } from "components/api";
 
-export default function QuizDetailsPage() {
+export default function DetailsPage() {
 
     const location = useLocation();
     const [quiz, setQuiz] = useState();
@@ -38,10 +38,10 @@ export default function QuizDetailsPage() {
             <h1>QuizDetails</h1>            
             <BackLink to={location?.state?.from ?? "/quizzes"}>Back to quizzes </BackLink>
             {quiz && 
-            <>  
+            <div>  
                 <p>Topic: {quiz.topic}</p>
                 <p>Level: {quiz.level}</p>
-            </>}
+            </div>}
             {loading && <b>Loading...</b>} 
             {error && <ErrorMessage>Error! Please reload this page.</ErrorMessage>}
         </>

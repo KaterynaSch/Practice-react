@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 import  PracticeCaptcha  from 'components/PracticeCaptcha/PracticeCaptcha';
 import { StyledErrMessage, StyledField, StyledForm, StyledLabel, FormButton } from './QuizForm.styled';
 
-
 const QuizSchema = Yup.object().shape({
     topic: Yup.string().min(3, 'Too Short!').required('Required'),
     time: Yup.number().min(10, 'Min 10 mins').max(30, 'Max 30 mins').required('Required'),
