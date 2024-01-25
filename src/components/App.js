@@ -23,5 +23,5 @@ export const App = () => {
                 {/* <Route path="*" element= {<Navigate to = {"/"}/>}/> */}
             </Route>
         </Routes>                            
-    )  
+    );  
 };

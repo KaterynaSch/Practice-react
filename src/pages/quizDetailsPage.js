@@ -8,6 +8,7 @@ import { fetchQuizById } from "components/api";
 
 
 export default function QuizDetailsPage() {
+
     const location = useLocation();
     const [quiz, setQuiz] = useState();
     const [loading, setLoading] = useState(false);
@@ -35,8 +36,7 @@ export default function QuizDetailsPage() {
     // location.state.from - url з якого прийшов (збереження обраних фільтрів)
     return (
         <>
-            <h1>QuizDetails</h1>
-            {/* <Link to={location.state.from}>Back to quizzes </Link> */}
+            <h1>QuizDetails</h1>            
             <BackLink to={location?.state?.from ?? "/quizzes"}>Back to quizzes </BackLink>
             {quiz && 
             <>  

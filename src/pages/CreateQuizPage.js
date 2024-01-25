@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 
 export default function CreateQuizPage() {
 
-    //  const [quizItems, setQuizItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);  
 
